@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "omar",
-    "database": "hackathon_db",
+    "password": "12345678",
+    "database": "gym_db",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging":false

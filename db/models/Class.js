@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     price: { type: DataTypes.STRING },
     date: { type: DataTypes.DATE },
     slug: { type: DataTypes.STRING, unique: true },
+    isAvailable: { type: DataTypes.BOOLEAN },
+    type: { type: DataTypes.STRING },
   });
   SequelizeSlugify.slugifyModel(Class, { source: ["name"] });
 
