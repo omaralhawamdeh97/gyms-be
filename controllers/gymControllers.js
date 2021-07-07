@@ -15,6 +15,7 @@ exports.createGym = async (req, res, next) => {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
     req.body.userId = req.user.id;
+
     const newGym = await Gym.create(req.body);
     res.status(201).json(newGym);
   } catch (error) {
