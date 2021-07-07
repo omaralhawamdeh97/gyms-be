@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Type.init(
     {
       name: DataTypes.STRING,
+      slug: { type: DataTypes.STRING, unique: true },
     },
     {
       sequelize,

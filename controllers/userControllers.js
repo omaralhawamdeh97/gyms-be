@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { User } = require("../db/models");
+const { User, Gym } = require("../db/models");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/keys");
 
@@ -32,7 +32,13 @@ exports.signin = (req, res, next) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      include: {
+        model: Gym,
+        as: "gyms",
+        attributes: ["id"],
+      },
+    });
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });

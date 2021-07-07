@@ -25,6 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      slug: { type: Sequelize.STRING, unique: true },
     });
   },
   down: async (queryInterface, Sequelize) => {

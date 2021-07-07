@@ -6,6 +6,7 @@ const { jwtStrategy } = require("./middlewares/passport");
 const path = require("path");
 const app = express();
 const usersRouter = require("./routes/users");
+const gymsRouter = require("./routes/gyms");
 
 // Middlewares
 app.use(express.json());
@@ -17,6 +18,7 @@ passport.use(localStrategy);
 
 // Routes
 app.use(usersRouter);
+app.use("/gyms", gymsRouter);
 app.use("/media", express.static("media"));
 
 app.use((req, res, next) => {

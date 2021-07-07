@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       price: DataTypes.STRING,
       date: DataTypes.DATE,
+      slug: { type: DataTypes.STRING, unique: true },
     },
     {
       sequelize,
