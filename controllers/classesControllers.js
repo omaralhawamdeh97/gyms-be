@@ -14,9 +14,12 @@ exports.createClass = async (req, res, next) => {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
-
-    const newClass = await Class.create(req.body);
-    res.status(201).json(newClass);
+    if (req.user.role === "admin" || req.user.role === "owner") {
+      const newClass = await Class.create(req.body);
+      res.status(201).json(newClass);
+    } else {
+      res.status(401).end();
+    }
   } catch (error) {
     next(error);
   }
