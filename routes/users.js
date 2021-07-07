@@ -15,10 +15,4 @@ router.post(
 router.post("/signup", signup);
 router.get("/users", getUsers);
 
-router.post(
-  "/:userId/gyms",
-  passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
-  createGym
-);
 module.exports = router;
