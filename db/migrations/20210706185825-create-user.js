@@ -38,7 +38,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.STRING,
-        default: "member",
+        defaultValue: "member",
       },
     });
   },

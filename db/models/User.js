@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.STRING,
-      default: "member",
+      defaultValue: "member",
     },
   });
 
