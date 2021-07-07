@@ -15,8 +15,12 @@ exports.createGym = async (req, res, next) => {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
     req.body.userId = req.user.id;
-    const newGym = await Gym.create(req.body);
-    res.status(201).json(newGym);
+    if (req.user.role === "admin" || req.user.role === "owner") {
+      const newGym = await Gym.create(req.body);
+      res.status(201).json(newGym);
+    } else {
+      res.status(401).end();
+    }
   } catch (error) {
     next(error);
   }

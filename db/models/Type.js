@@ -1,25 +1,18 @@
 "use strict";
-const { Model } = require("sequelize");
+const { SequelizeSlugify } = require("sequelize-slugify/lib/sequelize-slugify");
 module.exports = (sequelize, DataTypes) => {
-  class Type extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Type.init(
-    {
-      name: DataTypes.STRING,
-      slug: { type: DataTypes.STRING, unique: true },
+  const Type = sequelize.define("Type", {
+    name: {
+      type: DataTypes.STRING,
     },
-    {
-      sequelize,
-      modelName: "Type",
-    }
-  );
+    slug: { type: DataTypes.STRING, unique: true },
+  });
+  SequelizeSlugify.slugifyModel(Type, { source: ["name"] });
+
+  Type.associate = (models) => {
+    models.Class.hasMany(Type, { foreignKey: "classId" });
+    Type.belongsTo(models.Class, { foreignKey: "classId" });
+  };
+
   return Type;
 };

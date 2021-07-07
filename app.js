@@ -7,6 +7,7 @@ const path = require("path");
 const app = express();
 const usersRouter = require("./routes/users");
 const gymsRouter = require("./routes/gyms");
+const typesRouter = require("./routes/types");
 
 // Middlewares
 app.use(express.json());
@@ -18,6 +19,7 @@ passport.use(localStrategy);
 
 // Routes
 app.use(usersRouter);
+app.use("/types", typesRouter);
 app.use("/gyms", gymsRouter);
 app.use("/media", express.static("media"));
 
