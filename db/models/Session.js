@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     models.Class.hasMany(Session, { foreignKey: "classId" });
     Session.belongsTo(models.Class, { foreignKey: "classId" });
   };
-
+  Session.associate = (models) => {
+    models.User.hasMany(Session, { foreignKey: "userId" });
+    Session.belongsTo(models.User, { foreignKey: "userId" });
+  };
   return Session;
 };
