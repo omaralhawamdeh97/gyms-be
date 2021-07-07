@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn("Classes", "types", Sequelize.STRING, {
+    await queryInterface.addColumn("Classes", "type", Sequelize.STRING, {
       references: {
         model: {
           tableName: "Types",
@@ -12,14 +12,14 @@ module.exports = {
     });
     await queryInterface.addColumn(
       "Classes",
-      "isAvailabe",
+      "isAvailable",
       Sequelize.BOOLEAN,
       {}
     );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn("Classes", "types");
-    await queryInterface.removeColumn("Classes", "isAvailabe");
+    await queryInterface.removeColumn("Classes", "type");
+    await queryInterface.removeColumn("Classes", "isAvailable");
   },
 };
