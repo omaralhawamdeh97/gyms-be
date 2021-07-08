@@ -14,7 +14,11 @@ exports.createSession = async (req, res, next) => {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
-    if (req.user.role === "admin" || req.user.role === "owner") {
+    if (
+      req.user.role === "admin" ||
+      req.user.role === "owner" ||
+      req.user.role === "coach"
+    ) {
       const newSession = await Session.create(req.body);
       res.status(201).json(newSession);
     } else {

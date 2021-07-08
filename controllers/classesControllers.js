@@ -11,6 +11,7 @@ exports.getClasses = async (req, res, next) => {
 
 exports.createClass = async (req, res, next) => {
   try {
+    console.log("aloo");
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
@@ -21,6 +22,7 @@ exports.createClass = async (req, res, next) => {
       res.status(401).end();
     }
   } catch (error) {
+    console.log("object");
     next(error);
   }
 };

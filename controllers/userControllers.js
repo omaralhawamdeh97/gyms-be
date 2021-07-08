@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { User, Gym } = require("../db/models");
+const { User, Gym, Session } = require("../db/models");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/keys");
 
@@ -33,14 +33,37 @@ exports.signin = (req, res, next) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: {
-        model: Gym,
-        as: "gyms",
-        attributes: ["id"],
-      },
+      attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+      include: [
+        {
+          model: Gym,
+          as: "gyms",
+          attributes: ["id"],
+        },
+        {
+          model: Session,
+
+          attributes: ["id"],
+        },
+      ],
     });
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    if (req.user.role === "admin" || req.user.role === "owner") {
+      const foundUser = await User.findByPk(userId);
+      await foundUser.update(req.body);
+      res.status(204).end();
+    } else {
+      res.status(401).end();
+    }
+  } catch (error) {
+    next(error);
   }
 };

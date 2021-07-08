@@ -1,9 +1,14 @@
 const express = require("express");
 const passport = require("passport");
 const upload = require("../middlewares/multer");
-const { createGym } = require("../controllers/gymControllers");
 
-const { signup, signin, getUsers } = require("../controllers/userControllers");
+const {
+  signup,
+  signin,
+  getUsers,
+  fetchUser,
+  updateUser,
+} = require("../controllers/userControllers");
 
 const router = express.Router();
 
@@ -14,5 +19,9 @@ router.post(
 );
 router.post("/signup", signup);
 router.get("/users", getUsers);
-
+router.put(
+  "/:userId",
+  passport.authenticate("jwt", { session: false }),
+  updateUser
+);
 module.exports = router;
